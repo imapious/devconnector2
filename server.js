@@ -1,5 +1,4 @@
-const express = require("express")();
-const app = express();
+const app = require("express")();
 
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
@@ -92,14 +91,14 @@ io.on("connect", socket => {
 });
 
 // Server static assets if in production
-if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  app.use(express.static("client/build"));
+// if (process.env.NODE_ENV === "production") {
+//   // Set static folder
+//   app.use(app.static("client/build"));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+//   });
+// }
 
 const port = process.env.PORT || 5000;
 
