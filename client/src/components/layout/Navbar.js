@@ -6,7 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 import { clearCurrentProfile } from "../../actions/profileActions";
 
 class Navbar extends Component {
-  onLogoutClick = e => {
+  onLogoutClick = (e) => {
     e.preventDefault();
     this.props.clearCurrentProfile();
     this.props.logoutUser();
@@ -43,14 +43,18 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <button onClick={this.onLogoutClick} className="nav-link" style={{ background: "none", border: "none" }}>
+          <button
+            onClick={this.onLogoutClick}
+            className="nav-link"
+            style={{ background: "none", border: "none" }}
+          >
             <img
               className="rounded-circle"
               src={user.avatar}
               alt={user.name}
               style={{
                 width: "25px",
-                marginRight: "5px"
+                marginRight: "5px",
               }}
               title="You must have a Gravatar connected to your email to display an image"
             />{" "}
@@ -63,10 +67,15 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand tests" to="/">
             DevConnector
           </Link>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#mobile-nav"
+          >
             <span className="navbar-toggler-icon" />
           </button>
 
@@ -76,6 +85,15 @@ class Navbar extends Component {
                 <Link className="nav-link" to="/profiles">
                   {" "}
                   Developers
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link btn btn-danger"
+                  to="/join"
+                  style={{ color: "white" }}
+                >
+                  Join Live Chat
                 </Link>
               </li>
             </ul>
@@ -89,14 +107,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { logoutUser, clearCurrentProfile }
-)(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(
+  Navbar
+);
