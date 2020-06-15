@@ -40,7 +40,7 @@ require("./config/passport.js")(passport);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
-app.user("cors");
+app.use("cors");
 
 // Sockets.io
 io.on("connect", socket => {
