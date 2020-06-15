@@ -14,33 +14,29 @@ let socket;
 const Chat = ({ location }) => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const [rooms, setRooms] = useState("");
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const ENDPOINT = "http://devsconnect205.herokuapp.com/";
 
-  useEffect(
-    () => {
-      const { name, room } = queryString.parse(location.search);
+  useEffect(() => {
+    const { name, room } = queryString.parse(location.search);
 
-      socket = io(ENDPOINT);
+    socket = io(ENDPOINT);
 
-      setRoom(room);
-      setName(name);
+    setRoom(room);
+    setName(name);
 
-      socket.emit("join", { name, room }, error => {
-        if (error) {
-          alert(error);
-        }
-      });
-    },
-    [ENDPOINT, location.search]
-  );
+    socket.emit("join", { name, room }, (error) => {
+      if (error) {
+        alert(error);
+      }
+    });
+  }, [ENDPOINT, location.search]);
 
   useEffect(() => {
-    socket.on("message", message => {
-      setMessages(messages => [...messages, message]);
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
     });
 
     socket.on("roomData", ({ users }) => {
@@ -48,7 +44,7 @@ const Chat = ({ location }) => {
     });
   }, []);
 
-  const sendMessage = event => {
+  const sendMessage = (event) => {
     event.preventDefault();
 
     if (message) {
@@ -61,7 +57,11 @@ const Chat = ({ location }) => {
       <div className="chatContainer">
         <InfoBar room={room} />
         <Messages messages={messages} name={name} />
-        <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+        <Input
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
       </div>
       <TextContainer users={users} />
     </div>

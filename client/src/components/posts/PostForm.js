@@ -11,7 +11,7 @@ class PostForm extends Component {
 
     this.state = {
       text: "",
-      errors: {}
+      errors: {},
     };
   }
 
@@ -21,15 +21,15 @@ class PostForm extends Component {
     }
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
-    const { user } = this.props.auth;
+    // const { user } = this.props.auth;
 
     const newPost = {
       text: this.state.text,
       name: this.state.name,
-      avatar: this.state.avatar
+      avatar: this.state.avatar,
     };
 
     this.props.addPost(newPost);
@@ -37,7 +37,7 @@ class PostForm extends Component {
     this.setState({ text: "" });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -79,15 +79,12 @@ class PostForm extends Component {
 PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { addPost }
-)(PostForm);
+export default connect(mapStateToProps, { addPost })(PostForm);

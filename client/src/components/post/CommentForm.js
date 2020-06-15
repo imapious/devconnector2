@@ -10,7 +10,7 @@ class CommentForm extends Component {
 
     this.state = {
       text: "",
-      errors: {}
+      errors: {},
     };
   }
 
@@ -20,21 +20,21 @@ class CommentForm extends Component {
     }
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
-    const { user } = this.props.auth;
+    // const { user } = this.props.auth;
     const { postId } = this.props;
 
     const newComment = {
-      text: this.state.text
+      text: this.state.text,
     };
 
     this.props.addComment(postId, newComment);
     this.setState({ text: "" });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -43,7 +43,9 @@ class CommentForm extends Component {
     return (
       <div className="post-form mb-3">
         <div className="card card-info">
-          <div className="card-header bg-info text-white">Make a comment...</div>
+          <div className="card-header bg-info text-white">
+            Make a comment...
+          </div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
@@ -70,15 +72,12 @@ CommentForm.propTypes = {
   addComment: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(
-  mapStateToProps,
-  { addComment }
-)(CommentForm);
+export default connect(mapStateToProps, { addComment })(CommentForm);
